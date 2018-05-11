@@ -48,6 +48,7 @@ function parse(data) {
                 time.place = html(source[5]).text().trim();
                 time.startsection = parseInt(html(source[2]).text().trim());
                 time.endsection = time.startsection - 1 + parseInt(html(source[3]).text().trim());
+                time.week = parseInt(html(source[1]).text().trim());
                 let startTeachWeek = parseInt(teachWeek.split("-")[0]);
                 let endTeachWeek = parseInt(teachWeek.split("-")[1]);
                 time.teachweek = [];
