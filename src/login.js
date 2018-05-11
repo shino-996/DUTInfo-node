@@ -63,9 +63,6 @@ function authJump(cookieJar, rsp) {
 
 module.exports = (studentNumber, password) => {
     let cookieJar = request.jar();
-    let session = {
-        "cookieJar": cookieJar
-    };
     return new Promise((resolve, reject) => {
         fetchCookie(cookieJar)
         .then( data => {
@@ -73,7 +70,7 @@ module.exports = (studentNumber, password) => {
         }).then( rsp => {
             return authJump(cookieJar, rsp);
         }).then( rsp => {
-            resolve(session);
+            resolve(cookieJar);
         }).catch( error => {
             reject(error);
         })

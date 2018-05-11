@@ -23,12 +23,12 @@ function parse(data) {
     return info;
 }
 
-module.exports = session => {
+module.exports = cookieJar => {
     return new Promise((resolve, reject) => {
         fetch()
         .then( data => {
-            session.library = parse(data);
-            resolve(session);
+            let library = parse(data);
+            resolve(library);
         }).catch( error => {
             reject(error);
         });

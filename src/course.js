@@ -4,35 +4,6 @@ const request = require("request-promise-native");
 const cheerio = require("cheerio");
 const gbkDecoder = require("iconv-lite");
 
-function jumpTeachPate(cookieJar) {
-    let option = {
-        url: "https://sso.dlut.edu.cn/cas/login?service=https%3A%2F%2Fportal.dlut.edu.cn%2Fsso%2Fsso_jw.jsp",
-        headers: {
-            "User-Agent": "curl/7.54.0"
-        },
-        jar: cookieJar
-    };
-    return request(option);
-}
-
-function teachAuth(cookieJar, data) {
-    let html = cheerio.load(data);
-    let option = {
-        url: "http://zhjw.dlut.edu.cn",
-        method: "POST",
-        form: {
-            "logintype": html("#logintype").attr("value"),
-            "un": html("#un").attr("value"),
-            "verify": html("#verify").attr("value"),
-            "time": html("#time").attr("value"),
-            "url": html("#url").attr("value")
-        },
-        encoding: null,
-        jar: cookieJar
-    };
-    return request(option);
-}
-
 function fetch(cookieJar) {
     let option = {
         url: "http://zhjw.dlut.edu.cn/xkAction.do?actionType=6",
@@ -47,7 +18,7 @@ function parse(data) {
     let str = gbkDecoder.decode(data, "GBK");
     let html = cheerio.load(str);
     let courseSource = html("tbody > tr.odd", "#user");
-    courseSource.each( (i, elem) => {
+    courseSource.each((i, elem) => {
         let source = html("td", elem);
         if(source.length > 7) {
             let course = {};
@@ -94,17 +65,12 @@ function parse(data) {
     return courses;
 }
 
-module.exports = session => {
-    let cookieJar = session.cookieJar;
+module.exports = cookieJar => {
     return new Promise((resolve, reject) => {
-        jumpTeachPate(cookieJar)
+        fetch(cookieJar)
         .then( data => {
-            return teachAuth(cookieJar, data);
-        }).then( data => {
-            return fetch(cookieJar);
-        }).then( data => {
-            session.course = parse(data);
-            resolve(session);
+            let course = parse(data);
+            resolve(course);
         }).catch( error => {
             reject(error);
         });

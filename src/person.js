@@ -21,13 +21,12 @@ function fetch(studentNumber, cookieJar) {
 }
 
 module.exports = (studentNumber) => {
-    return session => {
-        let cookieJar = session.cookieJar;
+    return cookieJar => {
         return new Promise((resolve, reject) => {
             fetch(studentNumber, cookieJar)
             .then( data => {
-                session.person = data["USER_NAME"];
-                resolve(session);
+                let person = data["USER_NAME"];
+                resolve(person);
             }).catch( error => {
                 reject(error);
             });

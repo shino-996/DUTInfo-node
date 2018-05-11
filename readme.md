@@ -7,7 +7,7 @@ POST 格式:
 {
     "studentnumber": "学号",
     "password": "校园门户密码",
-    "fetch": [course, net, ecard, person, library] // 选择需要的获取
+    "fetch": ["course", "net", "ecard", "person", "library", "test"] // 选择需要的获取
 }
 
 request 格式
@@ -43,6 +43,14 @@ request 格式
             "endsection": 6,
             "teachweek": [1, 2, 3, 4, 5, 6, 7, 8]
         }]
+    }],
+    "test":[
+    {
+        "name": "嵌入式系统设计-01 ",
+        "teachweek": "8",
+        "date": "2018-04-26",
+        "time": "08:00-09:40",
+        "place": "第一教学馆1-209"
     }],
     "ecard":
     {

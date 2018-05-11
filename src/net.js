@@ -17,13 +17,11 @@ function fetch(cookieJar) {
     return request(option);
 }
 
-module.exports = session => {
-    let cookieJar = session.cookieJar;
+module.exports = cookieJar => {
     return new Promise((resolve, reject) => {
         fetch(cookieJar)
         .then( data => {
-            session.net = data[0];
-            resolve(session);
+            resolve(data[0]);
         }).catch( error => {
             reject(error);
         })
