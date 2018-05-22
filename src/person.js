@@ -1,7 +1,7 @@
-"use strict";
+"use strict"
 
-const request = require("request-promise-native");
-const desEncoder = require("./des.js");
+const request = require("request-promise-native")
+const desEncoder = require("./des.js")
 
 function fetch(studentNumber, cookieJar) {
     let option = {
@@ -16,20 +16,17 @@ function fetch(studentNumber, cookieJar) {
         },
         jar: cookieJar,
         simple: false
-    };
-    return request(option);
+    }
+    return request(option)
 }
 
-module.exports = (studentNumber) => {
-    return cookieJar => {
-        return new Promise((resolve, reject) => {
-            fetch(studentNumber, cookieJar)
-            .then( data => {
-                let person = data["USER_NAME"];
-                resolve(person);
-            }).catch( error => {
-                reject(error);
-            });
-        });
+module.exports = studentNumber => {
+    return async cookieJar => {
+        try {
+            let data = await fetch(studentNumber, cookieJar)
+            return data["USER_NAME"]
+        } catch(error) {
+            throw error
+        }
     }
 }

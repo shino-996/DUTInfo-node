@@ -1,7 +1,7 @@
-"use strict";
-const request = require("request-promise-native");
-const cheerio = require("cheerio");
-const gbkDecoder = require("iconv-lite");
+"use strict"
+const request = require("request-promise-native")
+const cheerio = require("cheerio")
+const gbkDecoder = require("iconv-lite")
 
 function fetchCookie(cookieJar) {
     let option = {
@@ -10,23 +10,23 @@ function fetchCookie(cookieJar) {
             "User-Agent": "curl/7.54.0"
         },
         jar: cookieJar
-    };
-    return request(option);
+    }
+    return request(option)
 }
 
 function postLogin(studentNumber, password, cookieJar, data) {
-    let cookies = cookieJar.getCookies("https://sso.dlut.edu.cn");
-    let cookieString = "jsessionid=";
+    let cookies = cookieJar.getCookies("https://sso.dlut.edu.cn")
+    let cookieString = "jsessionid="
     for (let cookie of cookies) {
         if (cookie["key"] == "JESSIONID") {
-            cookieString += cookie["vlaue"];
-            break;
+            cookieString += cookie["vlaue"]
+            break
         }
     }
-    let html = cheerio.load(data);
-    let lt_ticket = html("#lt").attr("value");
-    let url = "https://sso.dlut.edu.cn/cas/login;" + cookieString + "?service=https%3A%2F%2Fportal.dlut.edu.cn%2Ftp%2F";
-    let desEncode = require("./des.js");
+    let html = cheerio.load(data)
+    let lt_ticket = html("#lt").attr("value")
+    let url = "https://sso.dlut.edu.cn/cas/login;" + cookieString + "?service=https%3A%2F%2Fportal.dlut.edu.cn%2Ftp%2F"
+    let desEncode = require("./des.js")
     let option = {
         url: url,
         method: "POST",
@@ -44,8 +44,8 @@ function postLogin(studentNumber, password, cookieJar, data) {
         jar: cookieJar,
         simple: false,
         resolveWithFullResponse: true
-    };
-    return request(option);
+    }
+    return request(option)
 }
 
 function authJump(cookieJar, rsp) {
@@ -57,22 +57,18 @@ function authJump(cookieJar, rsp) {
         jar: cookieJar,
         simple: false,
         followAllRedirects: false
-    };
-    return request(option);
+    }
+    return request(option)
 }
 
-module.exports = (studentNumber, password) => {
-    let cookieJar = request.jar();
-    return new Promise((resolve, reject) => {
-        fetchCookie(cookieJar)
-        .then( data => {
-            return postLogin(studentNumber, password, cookieJar, data);
-        }).then( rsp => {
-            return authJump(cookieJar, rsp);
-        }).then( rsp => {
-            resolve(cookieJar);
-        }).catch( error => {
-            reject(error);
-        })
-    });
+module.exports = async (studentNumber, password) => {
+    try {
+        let cookieJar = request.jar()
+        let data = await fetchCookie(cookieJar)
+        let jumpRsp = await postLogin(studentNumber, password, cookieJar, data)
+        await authJump(cookieJar, jumpRsp)
+        return cookieJar
+    } catch (error) {
+        throw error
+    }
 }

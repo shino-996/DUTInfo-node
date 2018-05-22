@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 
-const request = require("request-promise-native");
+const request = require("request-promise-native")
 
 function fetch(cookieJar) {
     let option = {
@@ -13,17 +13,15 @@ function fetch(cookieJar) {
         },
         jar: cookieJar,
         simple: false
-    };
-    return request(option);
+    }
+    return request(option)
 }
 
-module.exports = cookieJar => {
-    return new Promise((resolve, reject) => {
-        fetch(cookieJar)
-        .then( data => {
-            resolve(data);
-        }).catch( error => {
-            reject(error);
-        });
-    });
+module.exports = async cookieJar => {
+    try {
+        const data = await fetch(cookieJar)
+        return data
+    } catch(error) {
+        throw error
+    }
 }
