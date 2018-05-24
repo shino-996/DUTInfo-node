@@ -27,7 +27,7 @@ function parse(data) {
             let teachWeek = html(source[11]).text().replace(/[^0-9-]/ig, "").trim()
             if (teachWeek.length != 0) {
                 var time = {}
-                time.place = html(source[16]).text().trim()
+                time.place = html(source[16]).text().trim() + " " + html(source[17]).text().trim()
                 time.startsection = parseInt(html(source[13]).text().trim())
                 time.endsection = time.startsection - 1 + parseInt(html(source[14]).text().trim())
                 time.week = parseInt(html(source[12]).text().trim())
@@ -45,7 +45,7 @@ function parse(data) {
             let teachWeek = html(source[0]).text().replace(/[^0-9-]/ig, "")
             if (teachWeek.length != 0) {
                 var time = {}
-                time.place = html(source[5]).text().trim()
+                time.place = html(source[5]).text().trim() + " " + html(source[17]).text().trim()
                 time.startsection = parseInt(html(source[2]).text().trim())
                 time.endsection = time.startsection - 1 + parseInt(html(source[3]).text().trim())
                 time.week = parseInt(html(source[1]).text().trim())
