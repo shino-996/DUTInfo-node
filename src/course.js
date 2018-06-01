@@ -30,13 +30,10 @@ function parse(data) {
                 time.place = html(source[16]).text().trim() + " " + html(source[17]).text().trim()
                 time.startsection = parseInt(html(source[13]).text().trim())
                 time.endsection = time.startsection - 1 + parseInt(html(source[14]).text().trim())
-                time.week = parseInt(html(source[12]).text().trim())
-                let startTeachWeek = parseInt(teachWeek.split("-")[0])
-                let endTeachWeek = parseInt(teachWeek.split("-")[1])
+                time.weekday = parseInt(html(source[12]).text().trim())
+                time.startweek = parseInt(teachWeek.split("-")[0])
+                time.endweek = parseInt(teachWeek.split("-")[1])
                 time.teachweek = []
-                for (let i = 0; i <= endTeachWeek - startTeachWeek; ++i) {
-                    time.teachweek.push(startTeachWeek + i)
-                }
                 course.time = [time]
             }
             courses.push(course)
@@ -48,13 +45,9 @@ function parse(data) {
                 time.place = html(source[5]).text().trim() + " " + html(source[17]).text().trim()
                 time.startsection = parseInt(html(source[2]).text().trim())
                 time.endsection = time.startsection - 1 + parseInt(html(source[3]).text().trim())
-                time.week = parseInt(html(source[1]).text().trim())
-                let startTeachWeek = parseInt(teachWeek.split("-")[0])
-                let endTeachWeek = parseInt(teachWeek.split("-")[1])
-                time.teachweek = []
-                for (let i = 0; i <= endTeachWeek - startTeachWeek; ++i) {
-                    time.teachweek.push(startTeachWeek + i)
-                }
+                time.weekday = parseInt(html(source[1]).text().trim())
+                time.startweek = parseInt(teachWeek.split("-")[0])
+                time.endweek = parseInt(teachWeek.split("-")[1])
                 course.time.push(time)
             }
             if (course.time.length == 0) {

@@ -68,7 +68,7 @@ server.on("request", (req, res) => {
         processPost(res, json)
     })
 })
-server.listen(10000, error => {
+server.listen(10000, "0.0.0.0", error => {
     if (error) {
         console.log("server listen error")
         console.log(error)

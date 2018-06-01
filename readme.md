@@ -22,6 +22,7 @@ request 格式
     "person": "王梓浓",
     "library":
     {
+        "hastime": true,
         "opentime": "7:50",
         "closetime": "21:30"
     },
@@ -34,14 +35,17 @@ request 格式
             "place": "综合教学2号楼",
             "startsection": 1,
             "endsection": 2,
-            "week": 4,
-            "teachweek": [1, 2, 3, 4, 5, 6, 7, 8]
+            "weekday": 4,
+            "startweek": 1,
+            "endweek": 8
         },
         {
             "place": "综合教学2号楼",
             "startsection": 5,
             "endsection": 6,
-            "teachweek": [1, 2, 3, 4, 5, 6, 7, 8]
+            "weekday": 1,
+            "startweek": 1,
+            "endweek": 8
         }]
     }],
     "test":[
