@@ -23,9 +23,10 @@ function parse(data) {
         let source = html("td", elem)
         let test = {}
         test.name = html(source[4]).text()
-        test.teachweek = html(source[0]).text().replace(/[^0-9]/ig, "")
         test.date = html(source[5]).text()
-        test.time = html(source[6]).text()
+        const time = html(source[6]).text().split("-")
+        test.starttime = time[0]
+        test.endtime = time[1]
         test.place = html(source[2]).text() + html(source[3]).text()
         tests.push(test)
     })
