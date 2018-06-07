@@ -7,10 +7,11 @@ const teachLogin = require("./src/teachLogin.js")
 let funcMap = {
     "net": require("./src/net.js"),
     "ecard": require("./src/ecard.js"),
-    "course": require("./src/course.js"),
+    // "course": require("./src/course.js"),
     "test": require("./src/test.js"),
     "person": require("./src/person.js"),
-    "library": require("./src/library.js")
+    "library": require("./src/library.js"),
+    "course": require("./src/portal_course.js")
 }
 
 async function processPost(res, json) {
@@ -36,10 +37,10 @@ async function processPost(res, json) {
         let infoData = await Promise.all( funcArray.map( func => {
             return func(cookieJar)
         }))
-        let info = {}
-        for (let i of infoData.keys()) {
-            info[fetches[i]] = infoData[i]
-        }
+        const info = infoData.reduce( (info, data) => {
+            info[fetches[infoData.indexOf(data)]] = data
+            return info
+        }, {})
         res.writeHead(200, {
             "Content-Type": "application/json charset=UTF-8"
         })
