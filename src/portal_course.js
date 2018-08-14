@@ -94,6 +94,9 @@ module.exports = async cookieJar => {
     try {
         const body = await fetchYear(cookieJar)
         const allCourse = await fetchAllCourse(cookieJar, body)
+        if (typeof(allCourse) != 'object') {
+            return
+        }
         let weekArray = Array.from(new Array(20), (_, index) => { return index + 1 })
         const courseArray = await Promise.all(weekArray.map( week => {
             return fetch(cookieJar, body, allCourse, week)

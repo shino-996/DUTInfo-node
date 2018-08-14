@@ -9,9 +9,9 @@
   },
   "author": "shino",
   "dependencies": {
-    "request": "latest",
-    "request-promise-native": "latest",
     "cheerio": "latest",
-    "iconv-lite": "latest"
+    "iconv-lite": "latest",
+    "request": "^2.88.0",
+    "request-promise-native": "latest"
   }
 }

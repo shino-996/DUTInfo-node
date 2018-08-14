@@ -18,6 +18,9 @@ function parse(data) {
     let str = gbkDecoder.decode(data, "GBK")
     let html = cheerio.load(str)
     let table = html("#user > tbody")[1]
+    if (!table) {
+        return
+    }
     let testSource = html("tr", table)
     testSource.each((i, elem) => {
         let source = html("td", elem)
