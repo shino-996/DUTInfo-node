@@ -19,7 +19,7 @@ function parse(data) {
     let html = cheerio.load(str)
     let table = html("#user > tbody")[1]
     if (!table) {
-        return
+        return tests
     }
     let testSource = html("tr", table)
     testSource.each((i, elem) => {
