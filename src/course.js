@@ -33,7 +33,6 @@ function parse(data) {
                 time.weekday = parseInt(html(source[12]).text().trim())
                 time.startweek = parseInt(teachWeek.split("-")[0])
                 time.endweek = parseInt(teachWeek.split("-")[1])
-                time.teachweek = []
                 course.time = [time]
             }
             courses.push(course)

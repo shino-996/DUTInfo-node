@@ -7,11 +7,11 @@ const teachLogin = require("./src/teachLogin.js")
 let funcMap = {
     "net": require("./src/net.js"),
     "ecard": require("./src/ecard.js"),
-    // "course": require("./src/course.js"),
+    "course": require("./src/course.js"),
     "test": require("./src/test.js"),
     "person": require("./src/person.js"),
     "library": require("./src/library.js"),
-    "course": require("./src/portal_course.js")
+    // "course": require("./src/portal_course.js")
 }
 
 async function processPost(res, json) {
